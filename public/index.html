@@ -2,42 +2,146 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <base href="%PUBLIC_URL%/jotheode" target="_blank" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/assets/images/favicon.ico" />
+    <title>Connect Nest || Admin</title>
+     <!-- Font Awsome Cdn -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+     <!-- Bootstrap Css -->
+     <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/assets/vendors/bootstrap/css/bootstrap.css">
+     <!-- External (Qanelas) Fonts -->
+     <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/assets/fonts/stylesheet.css">
+     <!-- Chart js cdn -->
+     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script> -->
+     <!-- Slick Slider Css -->
+     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" />
+     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" /> -->
+     <!-- Intl Tel Css -->
+     <link href="%PUBLIC_URL%/assets/vendors/intel/css/intelcss.css" rel="stylesheet">
+     <!-- Owl Carousel Css -->
+     <link rel="stylesheet" href="%PUBLIC_URL%/assets/vendors/owlcarousel/owl.carousel.min.css">
+     <link rel="stylesheet" href="%PUBLIC_URL%/assets/vendors/owlcarousel/owl.theme.default.min.css">
+     <!-- Custom Css -->
+     <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/assets/css/style.css">
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<div id="root"></div>
+    <!-- Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Intl Tel -->
+<script src="%PUBLIC_URL%/assets/vendors/intel/js/intlTelInput.js"></script>
+<!-- Bootstrap -->
+<script src="%PUBLIC_URL%/assets/vendors/bootstrap/js/bootstrap.js"></script>
+<!-- Slick -->
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
+<!-- Owl Carousel -->
+<script src="%PUBLIC_URL%/assets/vendors/owlcarousel/owl.carousel.min.js"></script>
+<!-- lottie -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.8/lottie_svg.min.js?ver=1.0.0'></script>
+<!-- Custom js -->
+<script src="%PUBLIC_URL%/assets/js/function.js"></script>
+<!-- Graphs Configurations  -->
+<!-- <script>
+  new Chart("subscription", {
+      type: "line",
+      data: {
+          labels: ["Nov 2015", "March 2016", "July 2017", "August 2018", "Sep 2019", "Oct 2020", "July 2021"],
+          datasets: [{
+              fill: {
+                  target: 'origin',
+                  above: '#EBE0FD',
+                  below: 'transparent'
+              },
+              pointRadius: 3,
+              borderColor: "#9D62F5",
+              data: [30000, 20000, 30000, 25000, 35000, 49000, 40000],
+          }]
+      },
+      options: {
+          maintainAspectRatio: false,
+          scales: {
+              y: {
+                  title: {
+                      display: true,
+                      text: "Users",
+                      color: "#000000",
+                  },
+                  min: 0,
+                  max: 50000,
+              },
+              x: {
+                  title: {
+                      display: true,
+                      text: "Months",
+                      color: "#000000",
+                  }
+              },
+          },
+          plugins: {
+              legend: {
+                  display: false
+              },
+          }
+      }
+  });
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+  new Chart("serviceProvider", {
+      type: "line",
+      data: {
+          labels: ["Nov 2015", "March 2016", "July 2017", "August 2018", "Sep 2019", "Oct 2020", "July 2021"],
+          datasets: [{
+              fill: {
+                  target: 'origin',
+                  above: '#D9EEF9',
+                  below: 'transparent'
+              },
+              pointRadius: 3,
+              borderColor: "#2299DB",
+              data: [30000, 10000, 15000, 25000, 10000, 50000, 40000],
+          }]
+      },
+      options: {
+          maintainAspectRatio: false,
+          scales: {
+              y: {
+                  title: {
+                      display: true,
+                      text: "Users",
+                      color: "#000000",
+                  },
+                  min: 0,
+                  max: 50000,
+              },
+              x: {
+                  title: {
+                      display: true,
+                      text: "Months",
+                      color: "#000000",
+                  }
+              },
+          },
+          plugins: {
+              legend: {
+                  display: false
+              },
+          }
+      }
+  });
+
+
+  function generateData(value, i1, i2, step = 0) {
+      // for (let x = i1; x <= i2; x += step) {
+      //     yValues.push(eval(value));
+      //     xValues.push(x);
+      // }
+  };
+</script> -->
   </body>
 </html>
