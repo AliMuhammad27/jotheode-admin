@@ -42,17 +42,19 @@ export default function TableFilters({
     <>
       {/* Filters Start*/}
       <div className="user-listing-top dashCard py-2 px-2">
-        <div className="d-xl-flex align-items-end justify-content-between flex-wrap mb-xl-1">
+        <div className="d-xl-flex align-items-end justify-content-between flex-wrap mb-xl-3">
           <div>
             {setFrom && setTo && (
               <div className="userInput mb-2">
                 <div className="d-flex align-items-center flex-wrap">
-                  <label htmlFor className=" mb-1 mb-xl-0 me-2">
+                  <label htmlFor className="mainLabel mb-1 mb-xl-0 me-2">
                     Sort By:
                   </label>
                   <div className="d-flex flex-wrap w_custom_100">
                     <div className="mb-1 mb-xl-0 me-2 w_custom_100">
-                      <label htmlFor>From</label>
+                      <label htmlFor className="mainLabel">
+                        From
+                      </label>
                       <InputDatePicker
                         onChange={setFrom}
                         value={from}
@@ -60,7 +62,9 @@ export default function TableFilters({
                       />
                     </div>
                     <div className="mb-1 mb-xl-0 w_custom_100">
-                      <label htmlFor>To</label>
+                      <label htmlFor className="mainLabel">
+                        To
+                      </label>
                       <InputDatePicker
                         onChange={setTo}
                         value={to}
@@ -76,7 +80,7 @@ export default function TableFilters({
             {priceFilter && (
               <div className="user-input mb-2">
                 <div className="d-flex align-items-center">
-                  <label className="cGray d-inline-block mb-1 mb-xl-0 me-2 flex-shrink-0">
+                  <label className="mainLabel cGray d-inline-block mb-1 mb-xl-0 me-2 flex-shrink-0">
                     Sort by Price:
                   </label>
                   <Input
@@ -192,7 +196,7 @@ export default function TableFilters({
                     </button> */}
                 <Input
                   value={internal_search}
-                  className="select-filter search-input w-100"
+                  className="mainInput dashInput search-input w-100"
                   onChange={(internal_search) =>
                     setInternalSearch(internal_search)
                   }

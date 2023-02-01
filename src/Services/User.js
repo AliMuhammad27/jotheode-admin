@@ -3,12 +3,13 @@ export const getAllUsers = (
   page,
   perPage,
   search_string,
+  role,
   status,
   from,
   to,
   selected
 ) => {
-  return axios.get(`/users/all`, {
+  return axios.get(`/users`, {
     params: {
       page,
       perPage,
@@ -17,36 +18,13 @@ export const getAllUsers = (
       from,
       to,
       selected,
+      role,
     },
   });
 };
-
 export const getUserDetails = (id) => {
   return axios.get(`/users/${id}`);
 };
-
-export const getUserStatusLogs = (
-  page,
-  perPage,
-  id,
-  search_string,
-  status,
-  from,
-  to,
-  selected
-) => {
-  return axios.get(`/users/status-logs/${id}`, {
-    params: {
-      page,
-      perPage,
-      searchString: search_string,
-      status,
-      from,
-      to,
-      selected,
-    },
-  });
-};
-export const changeUserStatus = (id, data) => {
-  return axios.post(`/users/toggle/${id}`, data);
+export const changeUserStatus = (id) => {
+  return axios.get(`/users/toggleActiveInActive/${id}`);
 };

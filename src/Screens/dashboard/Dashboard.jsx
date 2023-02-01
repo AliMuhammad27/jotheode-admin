@@ -1,4 +1,5 @@
 import React from "react";
+import Graph from "../../Components/Graph";
 const Dashboard = () => {
   return (
     <div className="configuration">
@@ -64,7 +65,10 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="graph">
-                <canvas id="subscription" />
+                <Graph
+                  label={"User Subscriptions"}
+                  graph_data={[1, 2, 3, 4, 5, 6, 15, 10, 25, 30, 15, 20]}
+                />
               </div>
             </div>
           </div>
@@ -85,7 +89,10 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="graph">
-                <canvas id="serviceProvider" />
+                <Graph
+                  label={"ServiceProvider Subscriptions"}
+                  graph_data={[1, 2, 3, 4, 5, 6, 15, 10, 25, 30, 15, 20]}
+                />
               </div>
             </div>
           </div>

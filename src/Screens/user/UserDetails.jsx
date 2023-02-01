@@ -1,6 +1,8 @@
 import React from "react";
-
+import { useNavigate, useParams } from "react-router-dom";
 const UserDetails = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   return (
     <div class="configuration">
       <div class="container-fluid">
@@ -9,7 +11,7 @@ const UserDetails = () => {
             <div class="col-lg-6">
               <div class="backTitle">
                 <button type="button" class="backLink me-1">
-                  <i class="fas fa-arrow-left"></i>
+                  <i class="fas fa-arrow-left" onClick={() => navigate(-1)}></i>
                 </button>
                 <div class="pageTitleInner">
                   <h1 class="pageTitle text-capitalize m-0">User Details</h1>
@@ -44,7 +46,7 @@ const UserDetails = () => {
                 <div class="col-12">
                   <div class="userImageFrame">
                     <img
-                      src="./../../assets/images/userImage.jpg"
+                      src="assets/images/userImage.jpg"
                       alt=""
                       class="userImage"
                     />

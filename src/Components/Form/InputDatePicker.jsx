@@ -18,7 +18,7 @@ export default function InputDatePicker({
         onChange={(date) => {
           onChange(date ? createDateAsUTC(date) : "");
         }}
-        className="select-filter p-1"
+        className="d-inline-block mainInput dashInput smDropDown"
         open={open}
         onInputClick={() => {
           setOpen(!open);
@@ -30,7 +30,7 @@ export default function InputDatePicker({
         {...rest}
       />
       <button
-        className="btn view-btn position-absolute"
+        className="btn view-btn position-absolute d-none"
         onClick={(e) => {
           e.preventDefault();
           setOpen(!open);
@@ -38,7 +38,7 @@ export default function InputDatePicker({
         style={{ boxShadow: "none" }}
       >
         <i
-          className="fa fa-calendar enter-icon right-icon"
+          className="searchIcon fa fa-calendar enter-icon right-icon"
           aria-hidden="true"
         ></i>
       </button>

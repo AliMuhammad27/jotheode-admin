@@ -19,7 +19,7 @@ export const editProfileSchema = yup
 
 export const subscriptionSchema = yup
   .object({
-    planName: yup.string().required("Plan name is required"),
+    subscriptionname: yup.string().required("subscription name is required"),
     // price: yup.string().required("price is required"),
     // parkingSpace: yup.string().required("parking space is required"),
     description: yup.string().required("Description is required"),
@@ -30,15 +30,14 @@ export const subscriptionSchema = yup
   })
   .required();
 
-export const carSchema = yup
+export const categorySchema = yup
   .object({
-    carName: yup.string().required("car name is required"),
+    name: yup.string().required("category name is required"),
   })
   .required();
 
-export const facilitySchema = yup
-  .object({
-    facilityName: yup.string().required("facility name is required"),
-    // facilityStatus: yup.boolean().required('status is required').oneOf([true, false], "status is required")
-  })
-  .required();
+export const annoucementSchema = yup.object({
+  notificationType: yup.string().required("notification type is required"),
+  notificationTitle: yup.string().required("notification title is required"),
+  description: yup.string().required("description is required"),
+});

@@ -29,7 +29,7 @@ export default function TablePagination({ perPage, setPerPage }) {
     <div className="align-items-center d-flex mb-2 me-lg-4">
       <label className="cGray  d-inline-block mb-1 mb-xl-0 me-2">Show</label>
       <select
-        className="cGray  d-inline-block select-filter sm-dropdown me-2"
+        className="mainInput"
         value={perPage}
         onChange={(e) => setPerPage(e.target.value)}
       >
@@ -38,7 +38,9 @@ export default function TablePagination({ perPage, setPerPage }) {
         <option value={50}>50</option>
         <option value={100}>100</option>
       </select>
-      <label className="cGray  d-inline-block mb-1 mb-xl-0 ml-1">Entries</label>
+      <label className="cGray  d-inline-block ms-2 mb-1 mb-xl-0 ml-1">
+        Entries
+      </label>
     </div>
   );
 }

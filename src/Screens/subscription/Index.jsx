@@ -1,6 +1,55 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import useFetchData from "../../Hooks/useFetchData";
+import { useMutation } from "react-query";
+import Success from "../../Components/Modals/Modal.Success";
+import {
+  getAllSubscriptions,
+  changeSubscriptionPlanStatus,
+} from "../../Services/Subscription";
+import useTableControls from "../../Hooks/useTableControls";
 
 const Index = () => {
+  const {
+    perPage,
+    setPerPage,
+    status,
+    setStatus,
+    search_string,
+    setSearchString,
+    from,
+    setFrom,
+    to,
+    setTo,
+  } = useTableControls();
+  console.log("TableControls", perPage, status, from, to, search_string);
+  const {
+    // INTERNAL EXPORTS
+    setPage,
+    // REACT QUERY EXPORTS
+    isFetching,
+    isLoading,
+    data,
+    refetch,
+  } = useFetchData("subscription_logs", getAllSubscriptions, [
+    perPage,
+    search_string,
+    from,
+    to,
+  ]);
+  console.log("subscription_logs", data);
+
+  const { mutate, isLoading: loadingStatus } = useMutation(
+    (id) => changeSubscriptionPlanStatus(id),
+    {
+      onSuccess: (res) => {
+        refetch();
+        Success(res?.data?.msg);
+      },
+      onError: (err) => Error(err?.response?.data?.msg),
+    }
+  );
+
   return (
     <div class="configuration">
       <div class="container-fluid">
@@ -17,13 +66,15 @@ const Index = () => {
             </div>
             <div class="col-lg-6 text-end">
               <div class="d-flex align-items-baseline justify-content-end">
-                <a href="./add-new.php" class="mainButton primaryButton">
+                <Link
+                  to="/subscriptions/add-subscription"
+                  class="mainButton primaryButton"
+                >
                   Add
-                </a>
+                </Link>
               </div>
             </div>
           </div>
-
           {/* <!-- Filters Starts Here --> */}
           <div class="row mb-2">
             <div class="col-12">
@@ -131,107 +182,69 @@ const Index = () => {
             </div>
           </div>
           {/* <!-- Filters Ends Here -->             */}
-
           <div class="row align-items-baseline mb-4">
             <div class="col-xl-8">
-              <div class="postBox jobBox">
-                <div class="mainPost">
-                  <div class="poster">
-                    <div class="posterDetails">
-                      <h4 class="posterName">
-                        Monthly Package{" "}
-                        <span class="primaryColor d-block mt-2">$0.20</span>
-                      </h4>
-                    </div>
-
-                    <button
-                      type="button"
-                      class="btn dropdown-toggle transparent-btn green"
-                      data-bs-toggle="dropdown"
-                    >
-                      Active
-                    </button>
-                    <div class="dropdown-menu text-left customDropdown">
+              {data?.data?.docs.map((item) => (
+                <div class="postBox jobBox">
+                  <div class="mainPost">
+                    <div class="poster">
+                      <div class="posterDetails">
+                        <h4 class="posterName">
+                          {item?.subscriptiontype}{" "}
+                          <span class="primaryColor d-block mt-2">
+                            ${item?.subscriptionprice}
+                          </span>
+                        </h4>
+                      </div>
                       <button
-                        class="dropdown-item red dropButton"
-                        data-bs-toggle="modal"
-                        data-bs-target="#inactiveUser"
+                        type="button"
+                        class={
+                          item?.status
+                            ? "btn dropdown-toggle transparent-btn green"
+                            : "btn dropdown-toggle transparent-btn red"
+                        }
+                        data-bs-toggle="dropdown"
                       >
-                        <i class="fas fa-times me-2"></i>Inactive
+                        {item?.status ? <>Active</> : <>Inactive</>}
                       </button>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-12">
-                      <div class="jobContent">
-                        <p>
-                          Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing
-                          Elit. Aenean Euismod Bibendum Laoreet. Proin Gravida
-                          Dolor Sit Amet Lacus Accumsan Et Viverra Justo
-                          Commodo. Proin Sodales Pulvinar Tempor. Cum Sociis
-                          Natoque Penatibus Et Magnis Dis Parturient Montes,
-                          Nascetur Ridiculus Mus.
-                        </p>
-                        <a
-                          href="./edit-subscription.php"
-                          class="mainButton primaryButton"
+                      <div class="dropdown-menu text-left customDropdown">
+                        <button
+                          class={
+                            item?.status
+                              ? "dropdown-item red dropButton"
+                              : "dropdown-item green dropButton"
+                          }
+                          onClick={() => {
+                            mutate(item?._id);
+                          }}
                         >
-                          Edit
-                        </a>
+                          <i
+                            class={
+                              item?.status
+                                ? "fas fa-times me-1"
+                                : "fas fa-times me-1"
+                            }
+                          ></i>
+                          {item?.status ? <>Inactive</> : <>Active</>}
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-12">
+                        <div class="jobContent">
+                          <p>{item?.description}</p>
+                          <Link
+                            to={`/subscriptions/edit-subscription/${item?._id}`}
+                            class="mainButton primaryButton"
+                          >
+                            Edit
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="postBox jobBox">
-                <div class="mainPost">
-                  <div class="poster">
-                    <div class="posterDetails">
-                      <h4 class="posterName">
-                        Yearly Package{" "}
-                        <span class="primaryColor d-block mt-2">$0.40</span>
-                      </h4>
-                    </div>
-
-                    <button
-                      type="button"
-                      class="btn dropdown-toggle transparent-btn green"
-                      data-bs-toggle="dropdown"
-                    >
-                      Active
-                    </button>
-                    <div class="dropdown-menu text-left customDropdown">
-                      <button
-                        class="dropdown-item red dropButton"
-                        data-bs-toggle="modal"
-                        data-bs-target="#inactiveUser"
-                      >
-                        <i class="fas fa-times me-2"></i>Inactive
-                      </button>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-12">
-                      <div class="jobContent">
-                        <p>
-                          Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing
-                          Elit. Aenean Euismod Bibendum Laoreet. Proin Gravida
-                          Dolor Sit Amet Lacus Accumsan Et Viverra Justo
-                          Commodo. Proin Sodales Pulvinar Tempor. Cum Sociis
-                          Natoque Penatibus Et Magnis Dis Parturient Montes,
-                          Nascetur Ridiculus Mus.
-                        </p>
-                        <a
-                          href="./edit-subscription.php"
-                          class="mainButton primaryButton"
-                        >
-                          Edit
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

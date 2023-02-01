@@ -1,6 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useMutation } from "react-query";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { resetPassword } from "../../Services/Auth";
+import Button from "../../Components/Button";
+import Error from "../../Components/Modals/Modal.Error";
+import Success from "../../Components/Modals/Modal.Success";
 
 const ResetPassword = () => {
+  const [hidePass1, setHidePass1] = useState(true);
+  const [hidePass2, setHidePass2] = useState(true);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState();
+  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
+  const { encoded } = useParams();
+  useEffect(() => {
+    if (encoded) {
+      const decoded = window.atob(encoded);
+      const _email = JSON.parse(decoded)?.email;
+      const _code = JSON.parse(decoded)?.code;
+      setEmail(_email);
+      setCode(_code);
+    }
+  }, []);
+
+  const { mutate: resetPasswordMuate, isLoading: resetLoading } = useMutation(
+    (data) => resetPassword(data),
+    {
+      retry: false,
+      onSuccess: (res) => {
+        Success(res?.data?.message);
+
+        setCode("");
+        setPassword("");
+        setConfirmPassword("");
+        navigate("/auth/login");
+      },
+      onError: (err) => Error(err?.response?.data?.message),
+    }
+  );
   return (
     <div>
       <section className="authHeader d-lg-block d-none">
@@ -9,7 +48,7 @@ const ResetPassword = () => {
             <div className="col-12">
               <div className="authLogo">
                 <a href="./">
-                  <img src="./../../assets/images/logo.png" alt="" />
+                  <img src="assets/images/logo.png" alt="" />
                 </a>
               </div>
             </div>
@@ -25,8 +64,8 @@ const ResetPassword = () => {
                   <form action="index.php">
                     <div className="authFormHeader text-center text-lg-start">
                       <div className="authLogo d-block d-lg-none mb-2">
-                        <a href="./">
-                          <img src="./../../assets/images/logo.png" alt="" />
+                        <a>
+                          <img src="assets/images/logo.png" alt="" />
                         </a>
                       </div>
                       <h2 className="authFormHeading">Password Recovery</h2>
@@ -40,15 +79,25 @@ const ResetPassword = () => {
                           </label>
                           <div className="passwordWrapper">
                             <input
-                              type="password"
+                              type={hidePass1 ? "password" : "text"}
                               className="mainInput siteInput passInput"
                               placeholder="Enter New Password"
                               name
                               id
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
                             />
-                            <button type="button" className="passDisplay">
+                            <button
+                              type="button"
+                              class="passDisplay"
+                              onClick={() =>
+                                setHidePass1((prevValue) => !prevValue)
+                              }
+                            >
                               <i
-                                className="fas fa-eye-slash"
+                                className={
+                                  hidePass1 ? "fas fa-eye-slash" : "fas fa-eye"
+                                }
                                 aria-hidden="true"
                               />
                             </button>
@@ -60,15 +109,27 @@ const ResetPassword = () => {
                           </label>
                           <div className="passwordWrapper">
                             <input
-                              type="password"
+                              type={hidePass2 ? "password" : "text"}
                               className="mainInput siteInput passInput"
                               placeholder="Confirm New Password"
                               name
                               id
+                              value={confirm_password}
+                              onChange={(e) =>
+                                setConfirmPassword(e.target.value)
+                              }
                             />
-                            <button type="button" className="passDisplay">
+                            <button
+                              type="button"
+                              class="passDisplay"
+                              onClick={() =>
+                                setHidePass2((prevValue) => !prevValue)
+                              }
+                            >
                               <i
-                                className="fas fa-eye-slash"
+                                className={
+                                  hidePass2 ? "fas fa-eye-slash" : "fas fa-eye"
+                                }
                                 aria-hidden="true"
                               />
                             </button>
@@ -77,14 +138,22 @@ const ResetPassword = () => {
                       </div>
                       <div className="authFormFooter text-center mt-4">
                         <button
-                          type="submit"
+                          loading={resetLoading}
                           className="mainButton primaryButton w-100 mb-3"
+                          onClick={() =>
+                            resetPasswordMuate({
+                              password,
+                              confirm_password,
+                              code,
+                              email,
+                            })
+                          }
                         >
                           Continue
                         </button>
-                        <a href="./index.php" className="forgetLink">
+                        <Link to="/auth/login" className="forgetLink">
                           Back to Login
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </form>
@@ -102,17 +171,17 @@ const ResetPassword = () => {
                   </p>
                 </div>
                 <img
-                  src="./../../assets/images/loginProp1.png"
+                  src="assets/images/loginProp1.png"
                   alt=""
                   className="loginProp loginProp1"
                 />
                 <img
-                  src="./../../assets/images/loginProp2.png"
+                  src="assets/images/loginProp2.png"
                   alt=""
                   className="loginProp loginProp2"
                 />
                 <img
-                  src="./../../assets/images/loginProp3.png"
+                  src="assets/images/loginProp3.png"
                   alt=""
                   className="loginProp loginProp3"
                 />

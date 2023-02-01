@@ -8,9 +8,11 @@ export default function useTableControls({
   defaultPriceFrom = "",
   defaultPriceTo = "",
   defaultDurationFilter = "",
+  defaultRole = "",
   defaultPlanFilter = "",
 } = {}) {
   const [perPage, setPerPage] = useState(defaultPerPage);
+  const [role, setRole] = useState(defaultRole);
   const [status, setStatus] = useState(defaultStatus);
   const [search_string, setSearchString] = useState(defaultSearchString);
   const [from, setFrom] = useState(defaultFrom);
@@ -38,5 +40,7 @@ export default function useTableControls({
     setDurationFilter,
     planFilter,
     setPlanFilter,
+    role,
+    setRole,
   };
 }

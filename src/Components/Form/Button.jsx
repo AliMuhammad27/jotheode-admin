@@ -17,7 +17,6 @@ export default function Button({
         <i className="fas fa-spinner fa-pulse"></i>
       </button>
     );
-
   return (
     <button type="submit" className={className} onClick={onClick} style={style}>
       {children}

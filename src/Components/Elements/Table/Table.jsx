@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 // import { DownloadCsv } from "../../../Util/helpers";
 import { handleExcelExport } from "../../../Services/General";
-
 export default function Table({
   headings,
   setSearchString,
@@ -46,6 +45,7 @@ export default function Table({
   // priceToOptions,
 }) {
   const navigate = useNavigate();
+  console.log("Data", data);
 
   return (
     <div className="content-body">
@@ -61,11 +61,7 @@ export default function Table({
               )}
               <h6 className="section-heading font-commons mb-0">{title}</h6>
             </div>
-            {!statusLog && (
-              <a href="#_" className="main-primarybtns my-2 mb-4">
-                Export
-              </a>
-            )}
+
             {add && (
               <Link to={addLink} className="main-primarybtns my-2 mb-4">
                 {addText}
@@ -86,18 +82,7 @@ export default function Table({
                   class="dropdown-menu dropDownMenu"
                   aria-labelledby="dropdownMenuButton1"
                 >
-                  {/* <li>
-                    <button type="button" className="dropdown-item">
-                      Export as PDF
-                    </button>
-                  </li> */}
                   <li>
-                    {/* <a
-                      className="dropdown-item"
-                      href={exportCSVUrl && DownloadCsv(exportCSVUrl)}
-                    >
-                      Export as Excel
-                    </a> */}
                     <button
                       type="button"
                       className="dropdown-item"
@@ -112,9 +97,6 @@ export default function Table({
               </div>
             )}
           </div>
-
-          {/* <div className="row">
-          <div className="col-12"> */}
           <TableFilters
             setSearchString={setSearchString}
             status_options={status_options}
@@ -138,34 +120,32 @@ export default function Table({
           />
           <div className="shadow-none">
             <div className="white-div-2 px-lg-3 py-lg-1 mt-3">
-              <div className="row mt-md-1">
-                <div className="dataTables_wrapper">
-                  <div className="row row-table">
-                    <div className="main-tabble table-responsive">
-                      <div className="dataTables_wrapper container-fluid dt-bootstrap4">
-                        <div className="row">
-                          <div className="col-sm-12">
-                            <table className="table table-borderless dataTable">
-                              <TableHeader headings={headings} />
-                              <TableBodyHandler
-                                data={data}
-                                length={headings?.length}
-                                isLoading={isLoading}
-                              />
-                              {children}
-                            </table>
-                          </div>
+              <div className="row row-table">
+                <div className="main-tabble table-responsive">
+                  <div className="dataTables_wrapper">
+                    <div className="row">
+                      <div className="col-sm-12">
+                        <div className="customTable table-responsive">
+                          <table className="table table-borderless w-100">
+                            <TableHeader headings={headings} />
+                            <TableBodyHandler
+                              data={data}
+                              length={headings?.length}
+                              isLoading={isLoading}
+                            />
+                            {children}
+                          </table>
                         </div>
                       </div>
                     </div>
-                    <Pagination
-                      currentDocs={data?.length}
-                      totalDocs={totalDocs}
-                      totalPages={totalPages}
-                      setPage={setPage}
-                    />
                   </div>
                 </div>
+                <Pagination
+                  currentDocs={data?.length}
+                  totalDocs={totalDocs}
+                  totalPages={totalPages}
+                  setPage={setPage}
+                />
               </div>
             </div>
           </div>

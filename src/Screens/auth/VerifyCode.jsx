@@ -1,5 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { passwordSchema2 } from "../../Schema/authSchema";
+import Error from "../../Components/Modals/Modal.Error";
+import { useMutation } from "react-query";
+import { recoverPassword, verifyCode } from "../../Services/Auth";
+import { useState } from "react";
+import Success from "../../Components/Modals/Modal.Success";
+import Button from "../../Components/Button";
 const VerifyCode = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState();
+  const [code, setCode] = useState("");
+  const { encoded } = useParams();
+
+  useEffect(() => {
+    if (encoded) {
+      const decoded = window.atob(encoded);
+      const _email = JSON.parse(decoded)?.email;
+      setEmail(_email);
+    }
+  }, []);
+
+  const { mutate: verifyCodeMutate, isLoading: codeLoading } = useMutation(
+    (data) => verifyCode(data),
+    {
+      retry: false,
+      onSuccess: (res) => {
+        Success(res?.data?.message);
+        navigate(`/auth/password-recovery-3/${encoded}`);
+      },
+      onError: (err) => Error(err?.response?.data?.message),
+    }
+  );
+
   return (
     <div>
       <section className="authHeader d-lg-block d-none">
@@ -8,7 +44,7 @@ const VerifyCode = () => {
             <div className="col-12">
               <div className="authLogo">
                 <a href="./">
-                  <img src="./../../assets/images/logo.png" alt="" />
+                  <img src="assets/images/logo.png" alt="" />
                 </a>
               </div>
             </div>
@@ -25,7 +61,7 @@ const VerifyCode = () => {
                     <div className="authFormHeader text-center text-lg-start">
                       <div className="authLogo d-block d-lg-none mb-2">
                         <a href="./">
-                          <img src="./../../assets/images/logo.png" alt="" />
+                          <img src=".assets/images/logo.png" alt="" />
                         </a>
                       </div>
                       <h2 className="authFormHeading">Password Recovery</h2>
@@ -41,20 +77,23 @@ const VerifyCode = () => {
                             type="number"
                             id="code"
                             className="mainInput siteInput"
+                            value={code}
+                            onChange={(email) => setCode(email.target.value)}
                             placeholder="Enter Verification Code"
                           />
                         </div>
                       </div>
                       <div className="authFormFooter text-center mt-4">
-                        <a
-                          href="./password-recovery-3.php"
+                        <Button
                           className="mainButton primaryButton w-100 mb-3"
+                          loading={codeLoading}
+                          onClick={() => verifyCodeMutate({ code, email })}
                         >
                           Continue
-                        </a>
-                        <a href="./index.php" className="forgetLink">
+                        </Button>
+                        <Link to="/auth/login" className="forgetLink">
                           Back to Login
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </form>
@@ -72,17 +111,17 @@ const VerifyCode = () => {
                   </p>
                 </div>
                 <img
-                  src="./../../assets/images/loginProp1.png"
+                  src="assets/images/loginProp1.png"
                   alt=""
                   className="loginProp loginProp1"
                 />
                 <img
-                  src="./../../assets/images/loginProp2.png"
+                  src="assets/images/loginProp2.png"
                   alt=""
                   className="loginProp loginProp2"
                 />
                 <img
-                  src="./../../assets/images/loginProp3.png"
+                  src="assets/images/loginProp3.png"
                   alt=""
                   className="loginProp loginProp3"
                 />

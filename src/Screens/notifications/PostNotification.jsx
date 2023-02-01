@@ -1,44 +1,39 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
-import Success from "../../Components/Modals/Modal.Success";
-import { subscriptionSchema } from "../../Schema/profileSchema";
-import Button from "../../Components/Button";
 import { useMutation } from "react-query";
-import { addSubscriptionPlan } from "../../Services/Subscription";
-import Error from "../../Components/Modals/Modal.Error";
-const AddSubscription = () => {
+import { addAnnoucement } from "../../Services/Annoucement";
+import { annoucementSchema } from "../../Schema/profileSchema";
+import Success from "../../Components/Modals/Modal.Success";
+import Button from "../../Components/Button";
+const PostNotification = () => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(subscriptionSchema),
+    resolver: yupResolver(annoucementSchema),
   });
-  const { mutate, isLoading } = useMutation(
-    (data) => addSubscriptionPlan(data),
-    {
-      retry: false,
-      onSuccess: (res) => {
-        console.log("addSubscriptionPlan Res", res?.data);
-        Success("Subscription Added", "Subscription Added Successfully!!");
-        navigate("/subscriptions");
-      },
-      onError: (err) => {
-        // console.log("addSubscriptionPlan err", err);
-        Error(err?.response?.data?.message);
-      },
-    }
-  );
+  const { mutate, isLoading } = useMutation((data) => addAnnoucement(data), {
+    retry: false,
+    onSuccess: (res) => {
+      console.log("addAnnoucement Res", res?.data);
+      Success("Notification Posted", "Notification Posted Successfully!!");
+      navigate("/notifications");
+    },
+    onError: (err) => {
+      // console.log("addSubscriptionPlan err", err);
+      Error(err?.response?.data?.message);
+    },
+  });
   const submit = (data) => {
     // console.log(data, "data");
     const obj = {
-      subscriptionname: data?.subscriptionname,
+      notificationType: data?.notificationType,
+      notificationTitle: data?.notificationTitle,
       description: data?.description,
-      subscriptionprice: data?.subscriptionprice,
-      subscriptiontype: data?.subscriptiontype,
-      subscriptionduration: data?.subscriptionduration,
     };
     console.log("final obj", obj);
     mutate(obj);
@@ -59,7 +54,7 @@ const AddSubscription = () => {
                 </button>
                 <div className="pageTitleInner">
                   <h1 className="pageTitle text-capitalize m-0">
-                    Create New subscription Package
+                    Post New Notifications{" "}
                   </h1>
                 </div>
               </div>
@@ -71,8 +66,8 @@ const AddSubscription = () => {
                 <div className="row mb-3">
                   <div className="col-12">
                     <label htmlFor className="mainLabel mb-1">
-                      Package Name
-                      {errors?.subscriptionname?.message && (
+                      Notification Title
+                      {errors?.notificationTitle?.message && (
                         <span className="text-danger">*</span>
                       )}
                     </label>
@@ -81,66 +76,42 @@ const AddSubscription = () => {
                     <input
                       type="text"
                       className="mainInput"
-                      placeholder="Enter Package Name"
-                      {...register("subscriptionname")}
+                      placeholder="Notification ABC"
+                      {...register("notificationTitle")}
                     />
                     <span className="text-danger">
-                      {errors?.subscriptionname?.message}
+                      {errors?.notificationTitle?.message}
                     </span>
                   </div>
                 </div>
                 <div className="row mb-3">
                   <div className="col-12">
                     <label htmlFor className="mainLabel mb-1">
-                      Package Price{" "}
-                    </label>
-                  </div>
-                  <div className="col-12">
-                    <input
-                      type="number"
-                      className="mainInput"
-                      placeholder="Enter Package Price "
-                      {...register("subscriptionprice")}
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <div className="col-12">
-                    <label htmlFor className="mainLabel mb-1">
-                      Package Type{" "}
+                      Notification Type{" "}
+                      {errors?.notificationType?.message && (
+                        <span className="text-danger">*</span>
+                      )}
                     </label>
                   </div>
                   <div className="col-12">
                     <input
                       type="text"
                       className="mainInput"
-                      placeholder="Enter Package Type "
-                      {...register("subscriptiontype")}
+                      placeholder="Alert  Notification"
+                      {...register("notificationType")}
                     />
+                    <span className="text-danger">
+                      {errors?.notificationType?.message}
+                    </span>
                   </div>
                 </div>
-
                 <div className="row mb-3">
                   <div className="col-12">
                     <label htmlFor className="mainLabel mb-1">
-                      Package Duration{" "}
-                    </label>
-                  </div>
-                  <div className="col-12">
-                    <input
-                      type="number"
-                      className="mainInput"
-                      placeholder="Enter Package Duration "
-                      {...register("subscriptionduration")}
-                    />
-                  </div>
-                </div>
-
-                <div className="row mb-3">
-                  <div className="col-12">
-                    <label htmlFor className="mainLabel mb-1">
-                      Package details
+                      Descriptive Text
+                      {errors?.description?.message && (
+                        <span className="text-danger">*</span>
+                      )}
                     </label>
                   </div>
                   <div className="col-12">
@@ -149,10 +120,12 @@ const AddSubscription = () => {
                       id
                       rows={6}
                       className="mainInput"
-                      placeholder="Enter Package details"
-                      defaultValue={""}
+                      placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus "
                       {...register("description")}
                     />
+                    <span className="text-danger">
+                      {errors?.description?.message}
+                    </span>
                   </div>
                 </div>
                 <div className="row">
@@ -175,4 +148,4 @@ const AddSubscription = () => {
   );
 };
 
-export default AddSubscription;
+export default PostNotification;

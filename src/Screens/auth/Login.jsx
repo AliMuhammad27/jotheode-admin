@@ -10,9 +10,9 @@ import Error from "../../Components/Modals/Modal.Error";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slice";
 import Button from "../../Components/Form/Button";
-import InputPassword from "../../Components/Form/InputPassword";
+import Success from "../../Components/Modals/Modal.Success";
 const Login = () => {
-  const [hidePass, setHidePass] = useState(true);
+  const [hidePass, setHidePass] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -29,6 +29,7 @@ const Login = () => {
       setAccessToken(res.data?.token);
       dispatch(setUser(res.data?.user));
       navigate("/dashboard");
+      Success("Login Successfully");
     },
     onError: (err) => {
       console.log("err", err);
@@ -91,23 +92,29 @@ const Login = () => {
                           </span>
                         </div>
                         <div class="mainInputBox">
-                          <label for="" class="mainLabel">
-                            Password*
-                          </label>
+                          <label class="mainLabel">Password*</label>
                           <div class="passwordWrapper">
                             <input
-                              type="password"
+                              type={hidePass ? "password" : "text"}
                               class="mainInput siteInput passInput"
                               placeholder="Enter Password"
                               name=""
                               id=""
                               {...register("password")}
                             />
-                            <button type="button" class="passDisplay">
+                            <button
+                              type="button"
+                              className="not_btn passDisplay"
+                              onClick={() =>
+                                setHidePass((prevValue) => !prevValue)
+                              }
+                            >
                               <i
-                                class="fas fa-eye-slash"
+                                className={
+                                  hidePass ? "fas fa-eye-slash" : "fas fa-eye"
+                                }
                                 aria-hidden="true"
-                              ></i>
+                              />
                             </button>
                           </div>
                         </div>

@@ -1,6 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Error from "../../Components/Modals/Modal.Error";
+import Success from "../../Components/Modals/Modal.Success";
+import { useMutation } from "react-query";
+import { recoverPassword } from "../../Services/Auth";
+import Button from "../../Components/Button";
 const ForgetPassword = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = React.useState();
+  const { mutate: recoverPasswordMuate, isLoading: recoverLoading } =
+    useMutation((data) => recoverPassword(data), {
+      retry: false,
+      onSuccess: (res) => {
+        Success(res?.data?.message);
+        navigate(`/auth/password-recovery-2/${res?.data?.encodedEmail}`);
+      },
+      onError: (err) => Error(err?.response?.data?.message),
+    });
   return (
     <div>
       <section className="authHeader d-lg-block d-none">
@@ -9,7 +25,7 @@ const ForgetPassword = () => {
             <div className="col-12">
               <div className="authLogo">
                 <a>
-                  <img src="./../../assets/images/logo.png" alt="" />
+                  <img src="assets/images/logo.png" alt="" />
                 </a>
               </div>
             </div>
@@ -22,11 +38,11 @@ const ForgetPassword = () => {
             <div className="col-lg-6 ">
               <div className="formMainWrap">
                 <div className="formWrap flex-grow-1">
-                  <form action="../dashboard/index.php">
+                  <form>
                     <div className="authFormHeader text-center text-lg-start">
                       <div className="authLogo d-block d-lg-none mb-2">
                         <a href="./">
-                          <img src="./../../assets/images/logo.png" alt="" />
+                          <img src="assets/images/logo.png" alt="" />
                         </a>
                       </div>
                       <h2 className="authFormHeading">Password Recovery</h2>
@@ -45,17 +61,25 @@ const ForgetPassword = () => {
                             id="email"
                             className="mainInput siteInput"
                             placeholder="Enter Email Address"
+                            value={email}
+                            onChange={(email) => setEmail(email.target.value)}
                           />
                         </div>
                       </div>
                       <div className="authFormFooter text-center mt-4">
-                        <a
-                          href="./password-recovery-2.php"
+                        <Button
+                          type="submit"
                           className="mainButton primaryButton w-100 mb-3"
+                          loading={recoverLoading}
+                          onClick={() => recoverPasswordMuate({ email })}
                         >
                           Continue
-                        </a>
-                        <Link to="/" className="forgetLink">
+                        </Button>
+                        <Link
+                          to="/auth/login"
+                          className="forgetLink"
+                          onClick={() => localStorage.removeItem("email")}
+                        >
                           Back to Login
                         </Link>
                       </div>
@@ -75,17 +99,17 @@ const ForgetPassword = () => {
                   </p>
                 </div>
                 <img
-                  src="./../../assets/images/loginProp1.png"
+                  src="assets/images/loginProp1.png"
                   alt=""
                   className="loginProp loginProp1"
                 />
                 <img
-                  src="./../../assets/images/loginProp2.png"
+                  src="assets/images/loginProp2.png"
                   alt=""
                   className="loginProp loginProp2"
                 />
                 <img
-                  src="./../../assets/images/loginProp3.png"
+                  src="assets/images/loginProp3.png"
                   alt=""
                   className="loginProp loginProp3"
                 />

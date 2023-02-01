@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Loading from '../Icons/Loading';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Loading from "../Icons/Loading";
 
 export default function TableMenu({
   loading,
@@ -21,16 +21,14 @@ export default function TableMenu({
     // <div className="btn-group custom-dropdown ml-2 mb-1">
     <>
       {/* <div className={`${status ? "" : "btn-group"}`}> */}
-      <div className={`${status_changed ? '' : 'btn-group'}`}>
+      <div className={`${status_changed ? "" : "btn-group"}`}>
         {status_changed ? (
           <button
             type="button"
             className={`btn dropdown-toggle transparent-btn ${
-              status ? 'text-green' : 'text-danger'
-            } ${toggleStatus && 'show'}`}
+              status ? "text-green" : "text-danger"
+            } ${toggleStatus && "show"}`}
             data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
             onClick={
               // !disable_action && status
               status || disable_action == true || status_changed
@@ -38,13 +36,13 @@ export default function TableMenu({
                 : () => {}
             }
           >
-            {status ? 'Active' : 'Inactive'}
+            {status ? "Active" : "Inactive"}
           </button>
         ) : (
           <button
             type="button"
             className={`btn transparent-btn ellipsis-btn ${
-              toggleStatus && 'show'
+              toggleStatus && "show"
             }`}
             data-toggle="dropdown"
             aria-haspopup="true"
@@ -59,9 +57,9 @@ export default function TableMenu({
           </button>
         )}
         <div
-          className={`dropdown-menu text-left custom-dropdown ${
-            toggleStatus && 'show'
-          } ${!status_changed && 'dropdown_action'}`}
+          className={`dropdown-menu postDropdown ${toggleStatus && "show"} ${
+            !status_changed && "dropdown_action"
+          }`}
         >
           {!disable_view && (
             <Link
@@ -88,8 +86,8 @@ export default function TableMenu({
               // className="dropdown-item d-flex align-items-center justify-content-start"
               className={
                 status
-                  ? 'dropdown-item  red_color'
-                  : 'dropdown-item  green_color'
+                  ? "dropdown-item  red_color"
+                  : "dropdown-item  green_color"
               }
             >
               {status ? (

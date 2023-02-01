@@ -19,6 +19,7 @@ import ImageSelector from "../../Components/ImageSelector";
 const EditProfile = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.slice);
+  console.log("User", user);
   const [userDetails, setuseDetails] = useState(user || null);
   const [info, setInfo] = useState({
     firstname: user?.firstname,
@@ -41,14 +42,12 @@ const EditProfile = () => {
   });
   const handleUpdate = () => {
     const formdata = new FormData();
-    if (userDetails?.firstname)
-      formdata.append("firstname", userDetails?.firstname);
-    if (userDetails?.lastname)
-      formdata.append("lastname", userDetails?.lastname);
-    if (userDetails?.user_image)
-      formdata.append("user_image", userDetails?.user_image);
+    if (info?.firstname) formdata.append("firstname", info?.firstname);
+    if (info?.lastname) formdata.append("lastname", info?.lastname);
+    if (info?.user_image) formdata.append("user_image", info?.user_image);
     mutate(formdata);
   };
+
   return (
     <div className="configuration">
       <div className="container-fluid">

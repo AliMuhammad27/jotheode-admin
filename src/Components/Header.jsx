@@ -30,15 +30,21 @@ const Header = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <a href="./../servicetype/" className="nav_links navLinks">
+            <Link to="/ServiceManagement" className="nav_links navLinks">
               <img src="assets/images/dside-icon/4.png" alt="" />
               <span>Service Type Management</span>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
             <Link to="/feedbacks" className="nav_links navLinks">
               <img src="assets/images/dside-icon/5.png" alt="" />
               <span>Feedback Management</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/cateogoryManagement" className="nav_links navLinks">
+              <img src="assets/images/dside-icon/5.png" alt="" />
+              <span>Category Management</span>
             </Link>
           </li>
           <li className="nav-item">
@@ -48,22 +54,22 @@ const Header = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <a href="./../paymentlogs/" className="nav_links navLinks">
+            <Link to="/Payment-logs" className="nav_links navLinks">
               <img src="assets/images/dside-icon/7.png" alt="" />
               <span>Payment Logs</span>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="./../notifications/" className="nav_links navLinks">
+            <Link to="/notifications" className="nav_links navLinks">
               <img src="assets/images/dside-icon/8.png" alt="" />
               <span>Notifications</span>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="./../booking-payment/" className="nav_links navLinks">
+            <Link to="/bookings" className="nav_links navLinks">
               <img src="assets/images/dside-icon/9.png" alt="" />
               <span>Booking &amp; Payment Details</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </aside>

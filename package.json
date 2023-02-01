@@ -1,7 +1,7 @@
 {
   "name": "jotheode_admin",
   "version": "0.1.0",
-  "homepage": "/jotheode/admin",
+  "homepage": "http://dev74.onlinetestingserver.com/jotheode/admin",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",

@@ -5,9 +5,10 @@ export const login = (data) => {
 export const recoverPassword = (data) => {
   return axios.post(`/auth/forgot`, data);
 };
-export const verifyCode = (data) => {
-  return axios.post(`/auth/verifycode`, data);
+export const verifyCode = (resetCode) => {
+  return axios.post(`/auth/verifycode`, resetCode);
 };
+
 export const resetPassword = (data) => {
-  return axios.post(`/auth/password/reset`, data);
+  return axios.post(`/auth/reset`, data);
 };

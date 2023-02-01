@@ -9,7 +9,7 @@ export const getAllFeedbacks = (
   to,
   selected
 ) => {
-  return axios.get(`/api/contact/`, {
+  return axios.get(`/contact`, {
     params: {
       page,
       perPage,
@@ -23,5 +23,5 @@ export const getAllFeedbacks = (
 };
 
 export const getFeedbackDetails = (id) => {
-  return axios.get(`/api/contact/${id}`);
+  return axios.get(`/contact/${id}`);
 };

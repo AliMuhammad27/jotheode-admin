@@ -5,6 +5,9 @@ export const asset = (filePath = null) => {
   return `${image_url}${filePath}`;
 };
 
+// Time in ms after react query will refetch the data
+export const query_stale_time = 30000;
+
 export const format_date = (date, format = "LL") => moment(date).format(format);
 
 export const format_time = (time, format = "hh:mm A") =>
